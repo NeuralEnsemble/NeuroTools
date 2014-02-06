@@ -69,7 +69,7 @@ Installation
 
 To install use:
 
-    pip install neurotools
+    pip install NeuroTools
 
 For more installation instructions, see the ``INSTALL`` file. 
 

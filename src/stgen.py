@@ -137,6 +137,7 @@ class StGen:
       
 
         Inputs:
+        -------
             rng - The random number generator state object (optional). Can be None, or 
                   a numpy.random.RandomState object, or an object with the same 
                   interface.
@@ -147,12 +148,14 @@ class StGen:
         otherwise StGen will create its own random number generator.
         If a seed is provided, it is passed to rng.seed(seed)
 
-        Examples:
+        Examples
+        --------
             >> x = StGen()
 
 
 
         StGen Methods:
+        ==============
 
         Spiking point processes:
         ------------------------
@@ -168,9 +171,9 @@ class StGen:
         --------------------------
 
         OU_generator - Ohrnstein-Uhlenbeck process
-        
 
         See also:
+        --------
           shotnoise_fromspikes
 
         """
@@ -198,6 +201,7 @@ class StGen:
         they spiked at t=0.0, though this spike is not included in the SpikeList.
 
         Inputs:
+        -------
             rate    - the rate of the discharge (in Hz)
             t_start - the beginning of the SpikeTrain (in ms)
             t_stop  - the end of the SpikeTrain (in ms)
@@ -205,21 +209,23 @@ class StGen:
                       rather than a SpikeTrain object.
 
         Examples:
+        --------
             >> gen.poisson_generator(50, 0, 1000)
             >> gen.poisson_generator(20, 5000, 10000, array=True)
-         
+
         See also:
+        --------
             inh_poisson_generator, inh_gamma_generator, inh_adaptingmarkov_generator
         """
 
         #number = int((t_stop-t_start)/1000.0*2.0*rate)
-        
+
         # less wasteful than double length method above
         n = (t_stop-t_start)/1000.0*rate
         number = numpy.ceil(n+3*numpy.sqrt(n))
         if number<100:
             number = min(5+numpy.ceil(2*n),100)
-        
+
         if number > 0:
             isi = self.rng.exponential(1.0/rate, number)*1000.0
             if number > 1:
@@ -277,10 +283,12 @@ class StGen:
                       rather than a SpikeTrain object.
 
         Examples:
+        --------
             >> gen.gamma_generator(10, 1/10., 0, 1000)
             >> gen.gamma_generator(20, 1/5., 5000, 10000, array=True)
-         
+
         See also:
+        --------
             inh_poisson_generator, inh_gamma_generator, inh_adaptingmarkov_generator
         """
 
@@ -339,6 +347,7 @@ class StGen:
         method, as presented in the references.
 
         Inputs:
+        -------
             rate   - an array of the rates (Hz) where rate[i] is active on interval 
                      [t[i],t[i+1]]
             t      - an array specifying the time bins (in milliseconds) at which to 
@@ -348,21 +357,25 @@ class StGen:
                      rather than a SpikeList object.
 
         Note:
+        -----
             t_start=t[0]
 
         References:
+        -----------
 
         Eilif Muller, Lars Buesing, Johannes Schemmel, and Karlheinz Meier 
         Spike-Frequency Adapting Neural Ensembles: Beyond Mean Adaptation and Renewal Theories
         Neural Comput. 2007 19: 2958-3010.
-        
+
         Devroye, L. (1986). Non-uniform random variate generation. New York: Springer-Verlag.
 
         Examples:
+        --------
             >> time = arange(0,1000)
             >> stgen.inh_poisson_generator(time,sin(time), 1000)
 
         See also:
+        --------
             poisson_generator, inh_gamma_generator, inh_adaptingmarkov_generator
         """
 
@@ -405,6 +418,7 @@ class StGen:
         references.
 
         Inputs:
+        -------
             a,b    - arrays of the parameters of the gamma PDF where a[i] and b[i] 
                      will be active on interval [t[i],t[i+1]]
             t      - an array specifying the time bins (in milliseconds) at which to 
@@ -413,13 +427,15 @@ class StGen:
             array  - if True, a numpy array of sorted spikes is returned,
                      rather than a SpikeList object.
 
-        Note: 
+        Note:
+        -----
             t_start=t[0]
             a is a dimensionless quantity > 0, but typically on the order of 2-10. 
             a = 1 results in a poisson process.
             b is assumed to be in units of 1/Hz (seconds).
 
         References:
+        ----------
 
         Eilif Muller, Lars Buesing, Johannes Schemmel, and Karlheinz Meier 
         Spike-Frequency Adapting Neural Ensembles: Beyond Mean Adaptation and Renewal Theories
@@ -428,9 +444,11 @@ class StGen:
         Devroye, L. (1986). Non-uniform random variate generation. New York: Springer-Verlag.
 
         Examples:
+        ---------
             See source:trunk/examples/stgen/inh_gamma_psth.py
 
         See also:
+        ---------
             inh_poisson_generator, gamma_hazard
         """
 
@@ -491,6 +509,7 @@ class StGen:
         references.
 
         Inputs:
+        -------
             a,b    - arrays of the parameters of the gamma PDF where a[i] and b[i] 
                      will be active on interval [t[i],t[i+1]]
             t      - an array specifying the time bins (in milliseconds) at which to 
@@ -499,24 +518,28 @@ class StGen:
             array  - if True, a numpy array of sorted spikes is returned,
                      rather than a SpikeList object.
 
-        Note: 
+        Note:
+        -----
             t_start=t[0]
             a is a dimensionless quantity > 0, but typically on the order of 2-10. 
             a = 1 results in a poisson process.
             b is assumed to be in units of 1/Hz (seconds).
 
         References:
+        -----------
 
         Eilif Muller, Lars Buesing, Johannes Schemmel, and Karlheinz Meier 
         Spike-Frequency Adapting Neural Ensembles: Beyond Mean Adaptation and Renewal Theories
         Neural Comput. 2007 19: 2958-3010.
-        
+
         Devroye, L. (1986). Non-uniform random variate generation. New York: Springer-Verlag.
 
         Examples:
+        ---------
             See source:trunk/examples/stgen/inh_gamma_psth.py
 
         See also:
+        ---------
             inh_poisson_generator, gamma_hazard
         """
 
@@ -543,6 +566,7 @@ class StGen:
         see the inh_2dadaptingmarkov_generator.
 
         Inputs:
+        -------
             a,bq    - arrays of the parameters of the hazard function where a[i] and bq[i] 
                      will be active on interval [t[i],t[i+1]]
             tau    - the time constant of adaptation (in milliseconds).
@@ -552,7 +576,8 @@ class StGen:
             array  - if True, a numpy array of sorted spikes is returned,
                      rather than a SpikeList object.
 
-        Note: 
+        Note:
+        -----
             - t_start=t[0]
 
             - a is in units of Hz.  Typical values are available 
@@ -565,6 +590,7 @@ class StGen:
 
 
         References:
+        -----------
 
         Eilif Muller, Lars Buesing, Johannes Schemmel, and Karlheinz Meier 
         Spike-Frequency Adapting Neural Ensembles: Beyond Mean Adaptation and Renewal Theories
@@ -573,10 +599,12 @@ class StGen:
         Devroye, L. (1986). Non-uniform random variate generation. New York: Springer-Verlag.
 
         Examples:
+        ---------
             See source:trunk/examples/stgen/inh_2Dmarkov_psth.py
 
         
         See also:
+        ---------
             inh_poisson_generator, inh_gamma_generator, inh_2dadaptingmarkov_generator
 
         """
@@ -662,6 +690,7 @@ class StGen:
         see the inh_adaptingmarkov_generator.
 
         Inputs:
+        -------
             a,bq    - arrays of the parameters of the hazard function where a[i] and bq[i] 
                      will be active on interval [t[i],t[i+1]]
             tau_s    - the time constant of adaptation (in milliseconds).
@@ -674,7 +703,8 @@ class StGen:
             array  - if True, a numpy array of sorted spikes is returned,
                      rather than a SpikeList object.
 
-        Note: 
+        Note:
+        -----
             - t_start=t[0]
 
             - a is in units of Hz.  Typical values are available 
@@ -691,6 +721,7 @@ class StGen:
 
 
         References:
+        -----------
 
         Eilif Muller, Lars Buesing, Johannes Schemmel, and Karlheinz Meier 
         Spike-Frequency Adapting Neural Ensembles: Beyond Mean Adaptation and Renewal Theories
@@ -699,9 +730,11 @@ class StGen:
         Devroye, L. (1986). Non-uniform random variate generation. New York: Springer-Verlag.
 
         Examples:
+        ---------
             See source:trunk/examples/stgen/inh_2Dmarkov_psth.py
         
         See also:
+        ---------
             inh_poisson_generator, inh_gamma_generator, inh_adaptingmarkov_generator
 
         """
@@ -787,6 +820,7 @@ class StGen:
         an AnalogSignal object.
         
         Inputs:
+        -------
             dt      - the time resolution in milliseconds of th signal
             tau     - the correlation time in milliseconds
             sigma   - std dev of the process
@@ -798,9 +832,11 @@ class StGen:
                       and are both numpy arrays.
         
         Examples:
+        ---------
             >> stgen.OU_generator(0.1, 2, 3, 0, 0, 10000)
 
         See also:
+        ---------
             OU_generator_weave1
         """
 
@@ -841,6 +877,7 @@ class StGen:
         an AnalogSignal object.
         
         Inputs:
+        -------
             dt      - the time resolution in milliseconds of th signal
             tau     - the correlation time in milliseconds
             sigma   - std dev of the process
@@ -852,6 +889,7 @@ class StGen:
                       and are both numpy arrays.
         
         Examples:
+        ---------
             >> stgen.OU_generator(0.1, 2, 3, 0, 0, 10000)
 
         See also:
@@ -898,6 +936,7 @@ class StGen:
         and is thus much faster.
         
         Inputs:
+        -------
             dt      - the time resolution in milliseconds of th signal
             tau     - the correlation time in milliseconds
             sigma   - std dev of the process
@@ -909,9 +948,11 @@ class StGen:
                       and are both numpy arrays.
         
         Examples:
+        ---------
             >> stgen.OU_generator_weave1(0.1, 2, 3, 0, 0, 10000)
 
         See also:
+        ---------
             OU_generator
         """
         import scipy.weave
@@ -979,6 +1020,7 @@ def shotnoise_fromspikes(spike_train,q,tau,dt=0.1,t_start=None, t_stop=None,arra
     Returns an AnalogSignal if array=False, otherwise (shotnoise,t) as numpy arrays. 
 
    Inputs:
+   -------
       spike_train - a SpikeTrain object
       q - the shot jump for each spike
       tau - the shot decay time constant in milliseconds
@@ -992,15 +1034,18 @@ def shotnoise_fromspikes(spike_train,q,tau,dt=0.1,t_start=None, t_stop=None,arra
       the shot kernal the tail is cut.  The default is usually fine.
 
    Note:
+   -----
       Spikes in spike_train before t_start are taken into account in the convolution.
 
    Examples:
+   ---------
       >> stg = stgen.StGen()
       >> st = stg.poisson_generator(10.0,0.0,1000.0)
       >> g_e = shotnoise_fromspikes(st,2.0,10.0,dt=0.1)
 
 
    See also:
+   ---------
       poisson_generator, inh_gamma_generator, inh_adaptingmarkov_generator, OU_generator ...
    """
 

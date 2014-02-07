@@ -4,6 +4,6 @@ Analysis
 Autodoc
 -------
 
-.. automodule:: neurotools.analysis
+.. automodule:: NeuroTools.analysis
    :members:
    :undoc-members:

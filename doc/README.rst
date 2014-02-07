@@ -6,9 +6,9 @@ The text files in this directory (including this one) are in reStructuredText_ f
 
     $ rst2html.py --initial-header-level=2 parameters.rst > parameters.html
 
-They can also be pasted directly into the Trac wiki, which supports reStructuredText as an alternative markup.
+More easily, you may use the provided ```Makefile```:
 
-API documentation is generated using the ``wikidoc.py`` script, which can produce MediaWiki, Trac Wiki, or LaTeX formats (but not, currently, reStructuredText).
+    $ make html
 
 Many of the files contain examples of interactive python sessions. The validity of this code can be tested by running, for example::
 

@@ -192,7 +192,7 @@ The whole plot is saved to a filename and type of choice with the call ``save(fi
 Autodoc
 -------
 
-.. automodule:: neurotools.plotting
+.. automodule:: NeuroTools.plotting
    :members:
    :undoc-members:
 

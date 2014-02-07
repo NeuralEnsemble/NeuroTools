@@ -2,7 +2,7 @@ The ``signals`` module
 ======================
 
 This module provides key functions to manipulate and perform calculations
-on data structures like spike trains, spike lists, analog signals.  
+on data structures like spike trains, spike lists, analog signals.
 
 The import and export of these data structures is typically achieved using the NeuroTools `io` module.
 
@@ -11,7 +11,7 @@ Spike Trains
 
 A spike train is a sorted vector of spike times, which is the result of a simulation or acquired by measurement.
 It has therefore some attributes, like ``t_start`` and ``t_stop``, which must in general
-be specified by the user, as they can not be inferred from the data.  
+be specified by the user, as they can not be inferred from the data.
 
 **Note:** the standard time unit used by NeuroTools is milliseconds.
 
@@ -37,17 +37,17 @@ they are inferred from the data as the min and the max of the spike times::
         100
     >>> spk2.t_stop
         90
-    
+
 You can access the raw vector of the spike times with the ``spike_times`` attribute::
-    
+
     >>> spk1.spike_times
         array([  0.,  10.,  20.,  30.,  40.,  50.,  60.,  70.,  80.,  90.])
-    
+
 The ``SpikeTrain`` object by itself may be interesting, but it will be more often used within a
 ``SpikeList`` object, as we'll see later.
 
 The ``SpikeTrain`` object has many useful methods such as ``mean_rate()``, ``copy()``, ``isi()``, ``cv_isi()``, ``raster_plot()``. See the ``signals`` API documentation for more
-details. 
+details.
 
 An example of basic use of a ``SpikeTrain`` object is as follows::
 
@@ -71,7 +71,7 @@ as a tuple of key-value pairs ``( spike_source_id, spike_train)``, that is, a ``
 Creation
 ~~~~~~~~
 
-The constructor of a ``SpikeList`` is works as follows: it will accepts a list of tuples ``(id, spike_time)``, 
+The constructor of a ``SpikeList`` is works as follows: it will accepts a list of tuples ``(id, spike_time)``,
 parameters ``t_start`` and ``t_stop``, and the list of all the recorded ids. The last three parameters
 can't be inferred from the data safely, so it's better if they are specified by the user.  Here is an simple example of how to create a ``SpikeList``::
 
@@ -83,15 +83,15 @@ because we can have silent cells in the ``SpikeList``), and that we will keep sp
 All the ``SpikeTrain`` objects within the ``SpikeList`` will share the same ``t_start`` and ``t_stop``.
 
 Rather than calling the ``SpikeList`` constructor,  a more common way to create a ``SpikeList`` in NeuroTools is to use the ``load_spikelist()`` or the ``load()`` functions.
-If you have generated your data with PyNN_, you can use the loading functions made for this purpose. For example if 
+If you have generated your data with PyNN_, you can use the loading functions made for this purpose. For example if
 you have recorded the spikes of a population in a file "spikes.dat", then one can load it as a ``SpikeList`` as follows::
-    
+
     >>> spklist = load("spikes.dat",'spikes')
 
 Using this syntax, the header information contained in the file is used to create the population, and ``t_start`` and ``t_stop`` are
 inferred automatically as the min and the max of all the ``SpikeTrains`` within the ``SpikeList``.
 If you want to keep the control on the parameters while creating the ``SpikeList``, do the following::
-    
+
     >>> spklist = load_spikelist("spikes.dat", range(11), t_start=0, t_stop=1000)
 
 
@@ -110,7 +110,7 @@ You can access ``SpikeTrain`` objects within the ``Spikelist`` with the simple s
             print spktrain.isi()
 
 As you can see in the example, one can navigate and iterate over a ``SpikeList`` object and have access to
-all the ``SpikeTrain``\s within the object. To have an explicit list of all the ids contained in the ``SpikeList``, 
+all the ``SpikeTrain``\s within the object. To have an explicit list of all the ids contained in the ``SpikeList``,
 use the function ``id_list()``::
 
     >>> spklist.id_list()
@@ -167,8 +167,8 @@ The ``AnalogSignal`` class
 
 Creation
 ~~~~~~~~
-    
-When we create an ``AnalogSignal``, we have to provide the list of the data, the time step of their acquisition, 
+
+When we create an ``AnalogSignal``, we have to provide the list of the data, the time step of their acquisition,
 and as an option the ``t_start`` and ``t_stop`` parameters. If ``None``, ``t_start`` will be 0 and ``t_stop`` will be ``len(data)/dt``::
 
     >>> x = AnalogSignal(sin(arange(1000)),0.1)
@@ -181,7 +181,7 @@ and as an option the ``t_start`` and ``t_stop`` parameters. If ``None``, ``t_sta
         500
 
 You can access the raw data of the ``AnalogSignal`` by just using::
-    
+
     >>> x.signal
 
 Usage
@@ -190,13 +190,13 @@ Usage
 Several functions can be applied to an ``AnalogSignal``. See the global API for an exhaustive list. You can for example
 do an ``event_trigger_average()``, slice the signal according to some events, detect areas of the signals which are
 over a certain threshold, and so on...
-        
+
 
 The ``AnalogSignalList`` class
 ------------------------------
 
 As for the ``SpikeList``, the ``AnalogSignalList`` is a collection of ``AnalogSignal`` objects. It has the same structure as
-the ``SpikeList``, meaning this is a dictionary containing ``AnalogSignal``\s with the key being the id of the cells. 
+the ``SpikeList``, meaning this is a dictionary containing ``AnalogSignal``\s with the key being the id of the cells.
 
 Creation
 ~~~~~~~~
@@ -205,7 +205,7 @@ The constructor of an ``AnalogSignalList`` is made as follows: it will accept an
 and additional parameters like ``t_start``, ``t_stop``, and the list of all the recorded ids. The last three parameters
 can't be inferred from the data safely, so it's better if they are specified by the user. Nevertheless, the most
 common way to create ``AnalogSignal``\s in NeuroTools is to use the ``load_analogsignal()`` or ``load()`` functions, as
-explained below. Currently, the constructor of the ``AnalogSignalList`` is mainly tuned to be used with these load functions, 
+explained below. Currently, the constructor of the ``AnalogSignalList`` is mainly tuned to be used with these load functions,
 and it is therefore not so simple to create one from a list of ``AnalogSignal``\s::
 
     >>> sig1 = AnalogSignal(sin(arange(10000),dt=0.1,t_start=0, t_stop=1000)
@@ -225,7 +225,7 @@ You can access an ``AnalogSignal`` object within the ``AnalogSignalList`` with t
             print as.signal
 
 As you can see in the example, one can navigate and iterate over an ``AnalogSignalList`` object and have access to
-all the ``AnalogSignal``\s within the object. To have an explicit list of all the ids contained in the ``AnalogSignalList``, 
+all the ``AnalogSignal``\s within the object. To have an explicit list of all the ids contained in the ``AnalogSignalList``,
 use the function ``id_list()``::
 
     >>> aslist.id_list()
@@ -238,7 +238,7 @@ You can't access ``AnalogSignal``\s of non recorded cells :-)
 Viewing and saving
 ~~~~~~~~~~~~~~~~~~
 
-Similarly to the ``SpikeList object``, some methods of the ``AnalogSignalList`` object can 
+Similarly to the ``SpikeList object``, some methods of the ``AnalogSignalList`` object can
 generate plots. Again, a plot can be either a new figure or a subplot::
 
     >>> vmlist.plot(1, display= subplot(221), kwargs={'color':'r'})
@@ -260,7 +260,7 @@ generated by PyNN, will return two ``AnalogSignalList`` ::
 Autodoc
 -------
 
-.. automodule:: neurotools.signals
+.. automodule:: NeuroTools.signals
    :members:
    :undoc-members:
 

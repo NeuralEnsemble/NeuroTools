@@ -1,6 +1,6 @@
 """
 NeuroTools.analysis
-==================
+===================
 
 A collection of analysis functions that may be used by NeuroTools.signals or other packages.
 

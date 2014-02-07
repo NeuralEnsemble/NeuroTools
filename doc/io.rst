@@ -137,7 +137,7 @@ You should not have to deal directly with this class, because this is just an in
 Autodoc
 -------
 
-.. automodule:: neurotools.io
+.. automodule:: NeuroTools.io
    :members:
    :undoc-members:
 

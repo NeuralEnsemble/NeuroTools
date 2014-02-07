@@ -344,7 +344,7 @@ essentially infinite number of points to be generated::
 Autodoc
 -------
 
-.. automodule:: neurotools.parameters
+.. automodule:: NeuroTools.parameters
    :members:
    :undoc-members:
 

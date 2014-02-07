@@ -24,8 +24,8 @@ the following attributes:
   a NeuroTools ``ParameterSet`` object
 
 ``input``
-  another component or ``None``; we assume a single input for
-  now. A list of inputs should also be possible. We need to be wary of
+  another component or ``None``; we assume a single input.
+  A list of inputs should also be possible. We need to be wary of
   recurrent loops, in which two components both have each other as
   direct or indirect inputs).
 
@@ -46,15 +46,15 @@ using, say, ``shelve`` directly::
 Creating a datastore
 --------------------
 
-Two different storage backends are currently available, ``ShelveDataStore`` and
-``DjangoORMDataStore``, and more will be added in future. It is also intended to
+Two different storage backends are available, ``ShelveDataStore`` and
+``DjangoORMDataStore``. It is also intended to
 be easy to write your own, custom storage backend. Whichever backend is used,
 after you have created your datastore, the interface is the same. For this
 example we will use the ``ShelveDataStore``::
 
     >>> from NeuroTools.datastore import ShelveDataStore
     >>> datastore = ShelveDataStore(root_dir="/tmp")
-    
+ 
 Here we specify that the ``shelve`` files will be created in ``/tmp``. Now let
 us create a simple component whose data we wish to store::
 
@@ -64,6 +64,6 @@ us create a simple component whose data we wish to store::
 Autodoc
 -------
 
-.. automodule:: neurotools.datastore
+.. automodule:: NeuroTools.datastore
    :members:
    :undoc-members:

@@ -75,7 +75,7 @@ finally 30 Hz for half a second. Note that t[0] is used as tstart.
 Autodoc
 -------
 
-.. automodule:: neurotools.stgen
+.. automodule:: NeuroTools.stgen
    :members:
    :undoc-members:
 

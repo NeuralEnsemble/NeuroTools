@@ -13,36 +13,33 @@ Coding Style
 Dependency Checking
 -------------------
 
-`NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_ supplies a dependency
-checker to gracefully disable functionality for which the required
-dependencies are not installed, without affecting other functionality.
-If you would like to use these facilities to add a dependency to a
-non-standard python module, please see the "check\_dependency" function
-in src/init.py, or the various modules that use it for examples.
+NeuroTools supplies a dependency checker to gracefully disable functionality
+for which the required dependencies are not installed, without affecting other
+functionality.  If you would like to use these facilities to add a dependency
+to a non-standard python module, please see the "check\_dependency" function or
+the various modules that use it for examples.
 
 Testing
 -------
 
 If you are looking to contribute functionality, please provide also
-tests for said functionality. See src/test for examples of
-`NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_ testing.
+tests for said functionality. See the ``test`` folder  for examples of testing.
 
-The complete `NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_ test suite
-can be run as follows:
+The complete NeuroTools test suite can be run as follows:
 
 ::
 
     $ nosetests --with-coverage --cover-package=NeuroTools
 
-The python "nose" unittesting suite is a dependency here. On
-ubuntu/debian:
+The python "nose" unittesting suite is a dependency here. On ubuntu/debian,
+install it using:
 
 ::
 
     $ sudo apt-get install python-nose python-coverage
 
 Tests for each packages can be run individually, for example for the
-`NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_.stgen sub-package:
+``NeuroTools.stgen`` sub-package:
 
 ::
 
@@ -51,23 +48,20 @@ Tests for each packages can be run individually, for example for the
 License of contributed code
 ---------------------------
 
-All of `NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_ in under GPL
-with the copyright remaining with contributors. In practice, since there
-maybe many contributions to a given module, we have until now just
-attributed a global `NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_
-copyright to all contributors equally. It is therefore understood that
-all copyright holders would need vote to make any licensing changes.
-Please contact existing core developers if you would like to submit
-code, but have a problem with submitting code to
-`NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_ under these license
-terms, or if you would like to be added to the list of
-`NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_ copyright holders.
+All of NeuroTools in under GPL with the copyright remaining with contributors.
+In practice, since there maybe many contributions to a given module, we have
+until now just attributed a global NeuroTools copyright to all contributors
+equally. It is therefore understood that all copyright holders would need vote
+to make any licensing changes.  Please contact existing core developers if you
+would like to submit code, but have a problem with submitting code to
+NeuroTools under these license terms, or if you would like to be added to the
+list of NeuroTools copyright holders.
 
 doc strings
 -----------
 
 Here are described some guidelines for formatting and content of Python
-"doc strings" in `NeuroTools </trac/NeuroTools/wiki/NeuroTools>`_
+"doc strings" in NeuroTools
 
 Function doc strings
 ~~~~~~~~~~~~~~~~~~~~
@@ -105,7 +99,7 @@ docstring is the doc you can have if, for example, you do, in ipython
     >> import numpy
     >> ?numpy
     >> import scipy.optimize
-    >> ?scipy.optimize  
+    >> ?scipy.optimize
 
 As you can see, it's a summary of a module organization, its functions,
 and so on... It's a text that should be inserted at the top of the file,

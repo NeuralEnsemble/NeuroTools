@@ -76,8 +76,8 @@ dependencies = {'pylab': {'website': 'http://matplotlib.sourceforge.net/',
                             'is_present': False, 'check': False},
                 'interval': {'website': 'http://pypi.python.org/pypi/interval/1.0.0',
                             'is_present': False, 'check': False},
-                'TableIO' : {'website': 'http://kochanski.org/gpk/misc/TableIO.html', 
-                                'is_present': False, 'check': False},                
+                'TableIO' : {'website': 'http://kochanski.org/gpk/misc/TableIO.html',
+                                'is_present': False, 'check': False},
                 ## Add here your extensions ###
                }
 
@@ -89,18 +89,15 @@ dependencies = {'pylab': {'website': 'http://matplotlib.sourceforge.net/',
 class DependencyWarning(UserWarning):
     pass
 
-
 def get_import_warning(name):
-    return '''** %s ** package is not installed.
-To have functions using %s please install the package.
-website : %s
-''' % (name, name, dependencies[name]['website'])
-
+    return '''** {} ** package is not installed.
+To have functions using {} please install the package.
+website : {}
+'''.format(name, name, dependencies[name]['website'])
 
 def get_runtime_warning(name, errmsg):
-    return '** %s ** package is installed but cannot be imported.' + \
-           'The error message is: %s' % (name, errmsg)
-
+    return """** {} ** package is installed but cannot be imported.
+              The error message is: {}""".format(name, errmsg)
 
 def check_numpy_version():
     import numpy
@@ -111,37 +108,34 @@ def check_numpy_version():
     else:
         return False
 
-
 def check_pytables_version():
     import tables
     if tables.__version__ <= 2:
-        raise Exception('PyTables version must be >= 1.4,' +
-                        'installed version is %s' % __version__)
-
+        raise Exception("""PyTables version must be >= 1.4,
+                        installed version is {}""".format(__version__))
 
 def check_dependency(name):
     if dependencies[name]['check']:
         return dependencies[name]['is_present']
     else:
         try:
-            exec("import %s" % name)
+            exec("import {}".format(name))
             dependencies[name]['is_present'] = True
         except ImportError:
             warnings.warn(get_import_warning(name), DependencyWarning)
-        except RuntimeError, errmsg:
+        except RuntimeError as errmsg:
             warnings.warn(get_runtime_warning(name, errmsg), DependencyWarning)
         dependencies[name]['check'] = True
         return dependencies[name]['is_present']
 
-
 # Setup fancy logging
-red = 0010
-green = 0020
-yellow = 0030
-blue = 0040
-magenta = 0050
-cyan = 0060
-bright = 0100
+# red = 0010
+# green = 0020
+# yellow = 0030
+# blue = 0040
+# magenta = 0050
+# cyan = 0060
+# bright = 0100
 
 try:
     import ll.ansistyle
@@ -149,8 +143,8 @@ try:
     def colour(col, text):
         try:
             return unicode(ll.ansistyle.Text(col, unicode(text)))
-        except UnicodeDecodeError, e:
-            raise UnicodeDecodeError("%s. text was %s" % (e, text))
+        except UnicodeDecodeError as e:
+            raise UnicodeDecodeError("{}. text was {}".format(e, text))
 except ImportError:
 
     def colour(col, text):
@@ -187,14 +181,14 @@ class FancyFormatter(logging.Formatter):
 
     """
 
-    DEFAULT_COLOURS = {
-        'CRITICAL': bright + red,
-        'ERROR': red,
-        'WARNING': magenta,
-        'HEADER': bright + yellow,
-        'INFO': cyan,
-        'DEBUG': green
-    }
+#     DEFAULT_COLOURS = {
+#         'CRITICAL': bright + red,
+#         'ERROR': red,
+#         'WARNING': magenta,
+#         'HEADER': bright + yellow,
+#         'INFO': cyan,
+#         'DEBUG': green
+#     }
 
     DEFAULT_INDENTS = {
         'CRITICAL': "",
@@ -206,19 +200,20 @@ class FancyFormatter(logging.Formatter):
     }
 
     def __init__(self, fmt=None, datefmt=None,
-                 colours=DEFAULT_COLOURS, mpi_rank=None):
+#                  colours=DEFAULT_COLOURS,
+                 mpi_rank=None):
         logging.Formatter.__init__(self, fmt, datefmt)
         self._colours = colours
         self._indents = FancyFormatter.DEFAULT_INDENTS
         if mpi_rank is None:
             self.prefix = ""
         else:
-            self.prefix = "%-3d" % mpi_rank
+            self.prefix = str(mpi_rank)
 
     def format(self, record):
         s = logging.Formatter.format(self, record)
         if record.levelname == "HEADER":
-            s = "=== %s ===" % s
+            s = "=== {} ===".format(s)
         if self._colours:
             s = colour(self._colours[record.levelname], s)
         return self.prefix + self._indents[record.levelname] + s
@@ -251,10 +246,10 @@ def init_logging(filename, file_level=logging.INFO,
     if mpi_rank is None:
         mpi_fmt = ""
     else:
-        mpi_fmt = "%3d " % mpi_rank
+        mpi_fmt = str(mpi_rank)
     logging.basicConfig(level=file_level,
-                        format='%%(asctime)s %s%%(name)-10s %%(levelname)-6s' +
-                          '%%(message)s [%%(pathname)s:%%(lineno)d]' % mpi_fmt,
+                        format='%%(asctime)s {}%%(name)-10s %%(levelname)-6s' +
+                          '%%(message)s [%%(pathname)s:%%(lineno)d]'.format(mpi_fmt),
                         filename=filename,
                         filemode='w')
     console = logging.StreamHandler()

@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name = "NeuroTools",
-    version = "0.2.2",
+    version = "0.3",
     package_dir={'NeuroTools': 'src'},
     packages = ['NeuroTools',
                 'NeuroTools.utilities',
@@ -16,7 +16,7 @@ setup(
                 'NeuroTools.parameters',
                 'NeuroTools.optimize',
                ],
-    package_data={'NeuroTools': ['doc/*.rst', 'README.rst']},
+    package_data={'NeuroTools': ['doc/*.rst']},
     author = "The NeuralEnsemble Community",
     author_email = "neurotools@neuralensemble.org",
     description = "NeuroTools is a collection of tools to support all tasks associated with the analysis of neural activity - from neurophysiology to neural simulations. ",

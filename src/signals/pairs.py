@@ -96,7 +96,7 @@ class AutoPairs(PairsGenerator):
         N     = len(cells)
         if nb_pairs > N:
             if not self.no_silent:
-                print "Only %d distinct pairs can be extracted. Turn no_silent to True." %N
+                print("Only %d distinct pairs can be extracted. Turn no_silent to True." %N)
         try:
             pairs = numpy.zeros((N, 2),int)
             pairs[:,0] = cells[0:N]
@@ -258,5 +258,5 @@ class CustomPairs(PairsGenerator):
 
     def get_pairs(self, nb_pairs):
         if nb_pairs > len(self.pairs):
-            print "Trying to select too much pairs..."
+            print("Trying to select too much pairs...")
         return self.pairs[0:nb_pairs] 

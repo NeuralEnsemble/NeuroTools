@@ -28,8 +28,8 @@ load_conductancelist - function to load a ConductanceList object (inherits from 
 load                 - a generic loader for all the previous load methods.
 """
 
-from spikes import *
-from analogs import *
+from .spikes import *
+from .analogs import *
 
 def load(user_file, datatype):
     """

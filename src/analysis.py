@@ -258,8 +258,8 @@ def crosscorrelate(sua1, sua2, lag=None, n_pred=1, predictor=None,
                     subplot.legend()
                     pylab.draw()
             except ValueError:
-                print "There are no correlated events within the selected lag"\
-                " window of %s" % lag
+                print("There are no correlated events within the selected lag"\
+                " window of %s" % lag)
     else:
         return differences, pred, norm
 

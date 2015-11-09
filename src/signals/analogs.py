@@ -50,9 +50,9 @@ if not HAVE_MATPLOTLIB:
 
 
 newnum = check_numpy_version()
-from spikes import SpikeList, SpikeTrain
-from pairs import *
-from intervals import *
+from .spikes import SpikeList, SpikeTrain
+from .pairs import *
+from .intervals import *
 
 
 class AnalogSignal(object):
@@ -182,7 +182,7 @@ class AnalogSignal(object):
         subplot   = get_display(display)
         time_axis = self.time_axis()
         if not subplot or not HAVE_PYLAB:
-            print PYLAB_ERROR
+            print(PYLAB_ERROR)
         else:
             xlabel = "Time (ms)"
             set_labels(subplot, xlabel, ylabel)
@@ -686,7 +686,7 @@ class AnalogSignalList(object):
             try:
                 new_AnalogSignalList.append(id, self.analog_signals[id])
             except Exception:
-                print "id %d is not in the source AnalogSignalList" %id
+                print("id %d is not in the source AnalogSignalList" %id)
         return new_AnalogSignalList
 
     def time_slice(self, t_start, t_stop):
@@ -830,7 +830,7 @@ class AnalogSignalList(object):
             try:
                 result[count,:] = self.analog_signals[id].signal
             except ValueError:
-                print result[count,:].shape, self.analog_signals[id].signal.shape
+                print(result[count,:].shape, self.analog_signals[id].signal.shape)
                 raise
         return numpy.std(result, axis=0)
 
@@ -932,7 +932,7 @@ class VmList(AnalogSignalList):
         id_list   = self._AnalogSignalList__sub_id_list(id_list)
         time_axis = self.time_axis()
         if not subplot or not HAVE_MATPLOTLIB:
-            print MATPLOTLIB_ERROR
+            print(MATPLOTLIB_ERROR)
         else:
             xlabel = "Time (ms)"
             ylabel = "Membrane Potential (mV)"
@@ -971,7 +971,7 @@ class CurrentList(AnalogSignalList):
         id_list   = self._AnalogSignalList__sub_id_list(id_list)
         time_axis = self.time_axis()
         if not subplot or not HAVE_PYLAB:
-            print PYLAB_ERROR
+            print(PYLAB_ERROR)
         else:
             xlabel = "Time (ms)"
             ylabel = "Current (nA)"
@@ -1002,7 +1002,7 @@ class ConductanceList(AnalogSignalList):
         id_list   = self._AnalogSignalList__sub_id_list(id_list)
         time_axis = self.time_axis()
         if not subplot or not HAVE_PYLAB:
-            print PYLAB_ERROR
+            print(PYLAB_ERROR)
         else:
             xlabel = "Time (ms)"
             ylabel = "Conductance (nS)"

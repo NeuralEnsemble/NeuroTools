@@ -28,7 +28,7 @@ All those objects can be used with NeuroTools.signals
 
 from NeuroTools import check_dependency
 
-import os, logging, cPickle, numpy
+import os, logging, pickle, numpy
 DEFAULT_BUFFER_SIZE = -1
 
 
@@ -126,7 +126,7 @@ class StandardTextFile(FileHandler):
             else:
                 break
         f.close()
-        exec cmd in None, self.metadata
+        exec(cmd) in None, self.metadata
         if not variable is None:
           self.metadata[variable[0]] = variable[1]
         if not variable is None:
@@ -271,11 +271,11 @@ class StandardPickleFile(FileHandler):
     
     def write(self, object):
         fileobj = file(self.filename,"w")
-        return cPickle.dump(object, fileobj)
+        return pickle.dump(object, fileobj)
 
     def read_spikes(self, params):
         fileobj = file(self.filename,"r")
-        object  = cPickle.load(fileobj)
+        object  = pickle.load(fileobj)
         object  = self.__reformat(params, object)
         return object
         
@@ -315,7 +315,7 @@ class NestFile(FileHandler):
                 logging.debug("dt is infered from the file header")
                 params['dt'] = self.metadata['dt']
         if params['id_list'] is None:
-            print "WARNING: id_list will be infered based on active cells..."
+            print("WARNING: id_list will be infered based on active cells...")
         elif isinstance(params['id_list'], int): # allows to just specify the number of neurons
             params['id_list'] = range(params['id_list'])
         elif not isinstance(params['id_list'], list):
@@ -353,7 +353,7 @@ class NestFile(FileHandler):
         return numpy.array(data)
 
     def _fix_id_list(self, data, params):
-        print "All gids are shifted by padding", self.padding
+        print("All gids are shifted by padding", self.padding)
         data[:,0] = numpy.array(data[:,0], int) - self.padding
         if params['id_list'] is None:
             params['id_list'] = numpy.unique(data[:,0])

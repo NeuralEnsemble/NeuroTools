@@ -33,8 +33,8 @@ from NeuroTools import analysis
 
 from NeuroTools.io import *
 from NeuroTools.plotting import get_display, set_axis_limits, set_labels, SimpleMultiplot, progress_bar
-from pairs import *
-from intervals import *
+from .pairs import *
+from .intervals import *
 
 
 from NeuroTools import check_dependency
@@ -450,7 +450,7 @@ class SpikeTrain(object):
         spikes  = interval.slice_times(self.spike_times)
         subplot = get_display(display)
         if not subplot or not HAVE_PYLAB:
-            print PYLAB_ERROR
+            print(PYLAB_ERROR)
         else:
             if len(spikes) > 0:
                 subplot.plot(spikes,numpy.ones(len(spikes)),',', **kwargs)
@@ -2350,7 +2350,7 @@ class SpikeList(object):
             spk = spk.time_slice(t_start, t_stop)
 
         if not subplot or not HAVE_PYLAB:
-            print PYLAB_ERROR
+            print(PYLAB_ERROR)
         else:
             ids, spike_times = spk.convert(format="[ids, times]")
             idx = numpy.where((spike_times >= t_start) & (spike_times <= t_stop))[0]
@@ -2478,7 +2478,7 @@ class SpikeList(object):
         if t_start is None: t_start = self.t_start
         if t_stop is None:  t_stop  = self.t_stop
         if not subplot or not HAVE_PYLAB:
-            print PYLAB_ERROR
+            print(PYLAB_ERROR)
         else:
             files        = []
             if float_positions is None:

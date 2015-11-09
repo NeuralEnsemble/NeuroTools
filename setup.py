@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name = "NeuroTools",
-    version = "0.3",
+    version = "0.3.1",
     package_dir={'NeuroTools': 'src'},
     packages = ['NeuroTools',
                 'NeuroTools.utilities',

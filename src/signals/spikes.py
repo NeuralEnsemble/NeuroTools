@@ -615,13 +615,13 @@ class SpikeTrain(object):
         if m_idx is None:
             m_idx = kernel.size / 2
         
-        time_vector = numpy.zeros((t_stop - t_start)/resolution + 1)
+        time_vector = numpy.zeros(int((t_stop - t_start)/resolution + 1))
         
         spikes_slice = self.spike_times[(self.spike_times >= t_start) & (
             self.spike_times <= t_stop)]
         
         for spike in spikes_slice:
-            index = (spike - t_start) / resolution
+            index = int((spike - t_start) / resolution)
             time_vector[index] = 1
         
         r = norm * scipy.signal.fftconvolve(time_vector, kernel, 'full')
